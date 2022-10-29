@@ -1,33 +1,30 @@
 class MonitoramentoModel {
   /// Dados recebidos da web
   MonitoramentoModel.fromMap(Map<String, dynamic> data) {
-    _codigoMonitoramento = data[''];
-    _codigoOrigem = data[''];
-    _dataMonitoramento = data[''];
-    _horarioMonitoramento = data[''];
-    _voltagem = data[''];
-    _amperagem = data[''];
-    _resistencia = data[''];
-    _custoMonitoramento = data[''];
+    _codigoOrigem = data['codigoOrigem'];
+    _dataMonitoramento = data['data'];
+    _horarioMonitoramento = data['horario'];
+    _voltagem = data['voltagem'];
+    _amperagem = data['amperagem'];
+    _resistencia = data['resistencia'];
+    _custoMonitoramento = data['custo'];
   }
 
   /// Recuperar os dados locais
   MonitoramentoModel.fromDatabase(Map<String, dynamic> data) {
-    _idMonitoramentoPk = data[''];
-    _codigoMonitoramento = data[''];
-    _codigoOrigem = data[''];
-    _dataMonitoramento = data[''];
-    _horarioMonitoramento = data[''];
-    _voltagem = data[''];
-    _amperagem = data[''];
-    _resistencia = data[''];
-    _custoMonitoramento = data[''];
+    _idMonitoramentoPk = data['PK_MONITORAMENTO'];
+    _codigoOrigem = data['CODIGO_ORIGEM'];
+    _dataMonitoramento = data['DATA_MONITORAMENTO'];
+    _horarioMonitoramento = data['HORARIO_MONITORAMENTO'];
+    _voltagem = double.tryParse(data['VOLTAGEM'])!;
+    _amperagem = double.tryParse(data['AMPERAGEM'])!;
+    _resistencia = double.tryParse(data['RESISTENCIA'])!;
+    _custoMonitoramento = double.tryParse(data['CUSTO_MONITORAMENTO'])!;
   }
 
   late int _idMonitoramentoPk;
-  late int _codigoMonitoramento;
   late int _codigoOrigem;
-  late DateTime _dataMonitoramento;
+  late String _dataMonitoramento;
   late String _horarioMonitoramento;
   late double _voltagem;
   late double _amperagem;
@@ -40,23 +37,17 @@ class MonitoramentoModel {
 
   int get idMonitoramentoPk => _idMonitoramentoPk;
 
-  void setCodigoMonitoramento(int codigoMonitoramento) {
-    _codigoMonitoramento = codigoMonitoramento;
-  }
-
-  int get codigoMonitoramento => _codigoMonitoramento;
-
   void setCodigoOrigem(int codigoOrigem) {
     _codigoOrigem = codigoOrigem;
   }
 
   int get codigoOrigem => _codigoOrigem;
 
-  void setDataMonitoramento(DateTime dataMonitoramento) {
+  void setDataMonitoramento(String dataMonitoramento) {
     _dataMonitoramento = dataMonitoramento;
   }
 
-  DateTime get dataMonitoramento => _dataMonitoramento;
+  String get dataMonitoramento => _dataMonitoramento;
 
   void setHorarioMonitoramento(String horarioMonitoramento) {
     _horarioMonitoramento = horarioMonitoramento;

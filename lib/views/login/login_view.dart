@@ -67,7 +67,7 @@ class _LoginBodyState extends State<_LoginBody> {
   void initState() {
     super.initState();
 
-    _buscaUltimoLogin();
+    // _buscaUltimoLogin();
   }
 
   @override

@@ -1,18 +1,17 @@
 // ignore_for_file: constant_identifier_names
 
 class App {
-  static const String NAME = 'Monitoramento de energia';
+  static const NAME = 'Monitoramento de energia';
 
-  static const String VERSION = '1.0.0';
+  static const VERSION = '1.0.0';
 
-  static const String ANDROID_ID =
-      'bbr.com.flutter.monitoramento_energia_mobile';
+  static const ANDROID_ID = 'bbr.com.flutter.monitoramento_energia_mobile';
 
-  static const String DATA_ATUALIZACAO = '18/07/2022';
+  static const DATA_ATUALIZACAO = '18/07/2022';
 
-  static const String DESENVOLVEDOR = 'Víctor Vinícius Welter';
+  static const DESENVOLVEDOR = 'Víctor Vinícius Welter';
 
-  static const int QUANTIDADE_LOGIN = 15;
+  static const QUANTIDADE_LOGIN = 15;
 }
 
 enum DialogAction { ok, sim_nao, none }

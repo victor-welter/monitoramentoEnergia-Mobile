@@ -7,7 +7,7 @@ class CsInfoInline extends StatelessWidget {
     this.info,
     this.icon,
     this.marginVertical = 3,
-    this.isColumn = true,
+    this.isColumn = false,
     Key? key,
   }) : super(key: key);
 

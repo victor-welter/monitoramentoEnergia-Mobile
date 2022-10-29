@@ -6,6 +6,7 @@ import '../../constants/constants.dart';
 import '../../controllers/monitoramento/monitoramento_controller.dart';
 import '../../models/monitoramento/monitoramento_model.dart';
 import '../../services/dialog_service.dart';
+import '../../widgets/cards/card_monitoramento.dart';
 import '../../widgets/cs_app_bar.dart';
 import '../../widgets/cs_circular_progress_indicador.dart';
 import '../../widgets/cs_elevated_button.dart';
@@ -191,8 +192,9 @@ class _HomeScreenBodyState extends State<_HomeScreenBody> {
             if (index < _stateView.monitoramentos.length) {
               final monitoramento = _stateView.monitoramentos[index];
 
-              //TODO Criar card
-              return Text(monitoramento.horarioMonitoramento);
+              return CardMonitoramento(
+                monitoramento: monitoramento,
+              );
             }
 
             return const CsCircularProgressIndicador.light();

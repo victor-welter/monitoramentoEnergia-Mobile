@@ -15,13 +15,14 @@ class CsCircularProgressIndicador extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      height: 25,
-      width: 25,
-      child: CircularProgressIndicator.adaptive(
-        backgroundColor: Colors.transparent,
-        valueColor: AlwaysStoppedAnimation<Color>(backgroundColor),
+    return Center(
+      child: SizedBox(
+        height: 25,
+        width: 25,
+        child: CircularProgressIndicator.adaptive(
+          backgroundColor: Colors.transparent,
+          valueColor: AlwaysStoppedAnimation<Color>(backgroundColor),
+        ),
       ),
     );
   }

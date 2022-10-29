@@ -67,8 +67,6 @@ class HttpService {
           ),
         );
 
-        ResponseValidate.validate(resp: response, rota: rota);
-
         return response.data;
       } on DioError catch (err) {
         ResponseValidate.validateDioError(error: err, rota: rota);
@@ -138,8 +136,6 @@ class HttpService {
             },
           ),
         );
-
-        ResponseValidate.validate(resp: response, rota: urlRequest);
 
         return response.data;
       } on DioError catch (err) {

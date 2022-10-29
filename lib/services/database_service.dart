@@ -40,6 +40,7 @@ class DatabaseService {
     ///Executar um `db.execute` para cada tabela
     await db.execute(DBCreateTables.usuarios);
     await db.execute(DBCreateTables.configuracoes);
+    await db.execute(DBCreateTables.monitoramento);
   }
 
   Future _updateDatabase(Database db, int oldVersion, int newVersion) async {

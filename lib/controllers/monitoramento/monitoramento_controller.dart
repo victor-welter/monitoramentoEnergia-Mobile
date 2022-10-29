@@ -1,33 +1,30 @@
 import 'package:sqflite/sqflite.dart';
 
 import '../../constants/constants.dart';
+import '../../database/controllers/db_monitoramento_controller.dart';
 import '../../database/helpers/db_helper.dart';
 import '../../models/monitoramento/monitoramento_model.dart';
 import '../../repositories/monitoramento/monitoramento_repository.dart';
-import '../../utils/request_utils.dart';
 
 class MonitoramentoController {
   static Future<void> downloadData() async {
-    Map<String, dynamic> response =
-        await MonitoramentoRepository.downloadData();
+    List<dynamic> response = await MonitoramentoRepository.downloadData();
 
-    validaResponse(
-      response,
-      'Erro ao baixar informações sobre os Monitoramentos de Energia',
-      ErrorType.sync,
-    );
-
-    await _saveData(response['data']);
+    await _saveData(response);
   }
 
   static Future<void> _saveData(List<dynamic> data) async {
-    // TODO deletar monitoramentos
+    DBMonitoramentoController.deleteAll();
 
     Batch batch = await DBHelper.getBatch();
 
     for (Map<String, dynamic> mon in data) {
       MonitoramentoModel monitoramento = MonitoramentoModel.fromMap(mon);
-      // TODO salvar monitoramento
+
+      DBMonitoramentoController.insert(
+        monitoramento: monitoramento,
+        batch: batch,
+      );
     }
 
     await batch.commit(noResult: true);
@@ -39,8 +36,11 @@ class MonitoramentoController {
   }) async {
     int offset = page * SearchOffset.MONITORAMENTOS;
 
-    //TODO Buscar todos os monitoramentos
-    List<Map<String, dynamic>> response = [];
+    List<Map<String, dynamic>> response =
+        await DBMonitoramentoController.searchMonitoramento(
+      offset: offset,
+      ignoreFilters: ignoreFilters,
+    );
 
     return _resolveSearch(response);
   }

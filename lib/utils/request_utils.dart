@@ -3,12 +3,11 @@ import '../constants/routes/local_routes.dart';
 import '../models/erros/error_model.dart';
 import '../services/dialog_service.dart';
 import '../services/navigation_service.dart';
-import '../services/secure_storage_service.dart';
 import '../services/service_locator.dart';
 
-Future<String> retornaJWT() async {
-  return (await SecureStorageService.read(SharedKeys.SECURE_TOKEN_JWT))!;
-}
+// Future<String> retornaJWT() async {
+//   return (await SecureStorageService.read(SharedKeys.SECURE_TOKEN_JWT))!;
+// }
 
 void validaResponse(
   Map<String, dynamic> response,
