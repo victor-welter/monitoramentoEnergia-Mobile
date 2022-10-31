@@ -29,7 +29,8 @@ class _ContentFiltroMonitoramentoState
   final _filters = getIt<FiltrosStore>().monitoramento;
 
   final _codigoOrigemController = TextEditingController();
-  final _dataController = TextEditingController();
+  final _dataInicialController = TextEditingController();
+  final _dataFinalController = TextEditingController();
 
   @override
   void initState() {
@@ -40,38 +41,14 @@ class _ContentFiltroMonitoramentoState
 
   void _setFilters() {
     _codigoOrigemController.text = _filters.codigoOrigem ?? '';
-    _dataController.text = dateFormatBR(_filters.data) ?? '';
+    _dataInicialController.text = dateFormatBR(_filters.dataInicial) ?? '';
+    _dataFinalController.text = dateFormatBR(_filters.dataFinal) ?? '';
   }
 
-  // Widget? _limpaCodigoOrigem() {
-  //   return Observer(
-  //     builder: (_) {
-  //       if (_filters.codigoOrigem == null || _filters.codigoOrigem!.isEmpty) {
-  //         return const SizedBox();
-  //       }
-
-  //       return CsIconButton(
-  //         child: CsIcon(
-  //           icon: Icons.close_rounded,
-  //           color: Theme.of(getIt<BuildContext>()).colorScheme.primaryContainer,
-  //         ),
-  //         onPressed: () {
-  //           FocusScope.of(context).unfocus();
-
-  //           _filters.setCodigoOrigem(null);
-  //           _codigoOrigemController.clear();
-
-  //           widget.onSearch!();
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
-
-  Widget? _limpaData() {
+  Widget? _limpaDataInicial() {
     return Observer(
       builder: (_) {
-        if (_filters.data == null) {
+        if (_filters.dataInicial == null) {
           return const SizedBox();
         }
 
@@ -83,8 +60,33 @@ class _ContentFiltroMonitoramentoState
           onPressed: () {
             FocusScope.of(context).unfocus();
 
-            _filters.setData(DateTime.now());
-            _dataController.text = dateFormatBR(_filters.data)!;
+            _filters.setDataInicial(null);
+            _dataInicialController.clear();
+
+            widget.onSearch!();
+          },
+        );
+      },
+    );
+  }
+
+  Widget? _limpaDataFinal() {
+    return Observer(
+      builder: (_) {
+        if (_filters.dataFinal == null) {
+          return const SizedBox();
+        }
+
+        return CsIconButton(
+          child: CsIcon(
+            icon: Icons.close_rounded,
+            color: Theme.of(getIt<BuildContext>()).colorScheme.primaryContainer,
+          ),
+          onPressed: () {
+            FocusScope.of(context).unfocus();
+
+            _filters.setDataFinal(null);
+            _dataFinalController.clear();
 
             widget.onSearch!();
           },
@@ -94,18 +96,36 @@ class _ContentFiltroMonitoramentoState
   }
 
   /// Seleciona a Data
-  Future<void> _onTapData() async {
+  Future<void> _onTapDataInicial() async {
     FocusScope.of(context).unfocus();
 
     DateTime? data = await getDate(
       firstDate: DateTime.now().add(const Duration(days: -365)),
       lastDate: DateTime.now(),
-      initialDate: _filters.data,
+      initialDate: _filters.dataInicial,
     );
 
     if (data != null) {
-      _dataController.text = dateFormatBR(data)!;
-      _filters.setData(data);
+      _dataInicialController.text = dateFormatBR(data)!;
+      _filters.setDataInicial(data);
+
+      widget.onSearch!();
+    }
+  }
+
+  /// Seleciona a Data Final
+  Future<void> _onTapDataFinal() async {
+    FocusScope.of(context).unfocus();
+
+    DateTime? data = await getDate(
+      firstDate: DateTime.now().add(const Duration(days: -365)),
+      lastDate: DateTime.now(),
+      initialDate: _filters.dataFinal,
+    );
+
+    if (data != null) {
+      _dataFinalController.text = dateFormatBR(data)!;
+      _filters.setDataFinal(data);
 
       widget.onSearch!();
     }
@@ -118,25 +138,22 @@ class _ContentFiltroMonitoramentoState
       children: [
         const CsHeaderContent(label: 'Filtro'),
 
-        // CsTextFormField(
-        //   label: 'Código',
-        //   hintText: 'Informe o Código',
-        //   onChanged: (codigoOrigem) {
-        //     _filters.setCodigoOrigem(codigoOrigem);
-
-        //     widget.onSearch!();
-        //   },
-        //   controller: _codigoOrigemController,
-        //   suffixIcon: _limpaCodigoOrigem(),
-        // ),
+        CsTextFormField(
+          onTap: _onTapDataInicial,
+          label: 'Data Inicial',
+          hintText: 'Selecione a data inicial',
+          controller: _dataInicialController,
+          enabled: false,
+          suffixIcon: _limpaDataInicial(),
+        ),
 
         CsTextFormField(
-          onTap: _onTapData,
-          label: 'Data',
-          hintText: 'Informe a Data',
-          controller: _dataController,
+          onTap: _onTapDataFinal,
+          label: 'Data Final',
+          hintText: 'Selecione a data final',
+          controller: _dataFinalController,
           enabled: false,
-          suffixIcon: _limpaData(),
+          suffixIcon: _limpaDataFinal(),
         ),
 
         const SizedBox(height: 25),

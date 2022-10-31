@@ -9,12 +9,19 @@ part of 'filtros_monitoramento.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$FiltrosMonitoramento on _FiltrosMonitoramento, Store {
-  Computed<DateTime?>? _$dataComputed;
+  Computed<DateTime?>? _$dataInicialComputed;
 
   @override
-  DateTime? get data =>
-      (_$dataComputed ??= Computed<DateTime?>(() => super.data,
-              name: '_FiltrosMonitoramento.data'))
+  DateTime? get dataInicial =>
+      (_$dataInicialComputed ??= Computed<DateTime?>(() => super.dataInicial,
+              name: '_FiltrosMonitoramento.dataInicial'))
+          .value;
+  Computed<DateTime?>? _$dataFinalComputed;
+
+  @override
+  DateTime? get dataFinal =>
+      (_$dataFinalComputed ??= Computed<DateTime?>(() => super.dataFinal,
+              name: '_FiltrosMonitoramento.dataFinal'))
           .value;
   Computed<String?>? _$codigoOrigemComputed;
 
@@ -24,19 +31,35 @@ mixin _$FiltrosMonitoramento on _FiltrosMonitoramento, Store {
               name: '_FiltrosMonitoramento.codigoOrigem'))
           .value;
 
-  late final _$_dataAtom =
-      Atom(name: '_FiltrosMonitoramento._data', context: context);
+  late final _$_dataInicialAtom =
+      Atom(name: '_FiltrosMonitoramento._dataInicial', context: context);
 
   @override
-  DateTime? get _data {
-    _$_dataAtom.reportRead();
-    return super._data;
+  DateTime? get _dataInicial {
+    _$_dataInicialAtom.reportRead();
+    return super._dataInicial;
   }
 
   @override
-  set _data(DateTime? value) {
-    _$_dataAtom.reportWrite(value, super._data, () {
-      super._data = value;
+  set _dataInicial(DateTime? value) {
+    _$_dataInicialAtom.reportWrite(value, super._dataInicial, () {
+      super._dataInicial = value;
+    });
+  }
+
+  late final _$_dataFinalAtom =
+      Atom(name: '_FiltrosMonitoramento._dataFinal', context: context);
+
+  @override
+  DateTime? get _dataFinal {
+    _$_dataFinalAtom.reportRead();
+    return super._dataFinal;
+  }
+
+  @override
+  set _dataFinal(DateTime? value) {
+    _$_dataFinalAtom.reportWrite(value, super._dataFinal, () {
+      super._dataFinal = value;
     });
   }
 
@@ -60,11 +83,22 @@ mixin _$FiltrosMonitoramento on _FiltrosMonitoramento, Store {
       ActionController(name: '_FiltrosMonitoramento', context: context);
 
   @override
-  void setData(DateTime? data) {
+  void setDataInicial(DateTime? dataInicial) {
     final _$actionInfo = _$_FiltrosMonitoramentoActionController.startAction(
-        name: '_FiltrosMonitoramento.setData');
+        name: '_FiltrosMonitoramento.setDataInicial');
     try {
-      return super.setData(data);
+      return super.setDataInicial(dataInicial);
+    } finally {
+      _$_FiltrosMonitoramentoActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setDataFinal(DateTime? dataFinal) {
+    final _$actionInfo = _$_FiltrosMonitoramentoActionController.startAction(
+        name: '_FiltrosMonitoramento.setDataFinal');
+    try {
+      return super.setDataFinal(dataFinal);
     } finally {
       _$_FiltrosMonitoramentoActionController.endAction(_$actionInfo);
     }
@@ -95,7 +129,8 @@ mixin _$FiltrosMonitoramento on _FiltrosMonitoramento, Store {
   @override
   String toString() {
     return '''
-data: ${data},
+dataInicial: ${dataInicial},
+dataFinal: ${dataFinal},
 codigoOrigem: ${codigoOrigem}
     ''';
   }

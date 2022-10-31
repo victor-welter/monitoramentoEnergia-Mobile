@@ -51,8 +51,19 @@ class DBMonitoramentoController {
 
     final filtros = getIt<FiltrosStore>().monitoramento;
 
-    whereFilters +=
-        'AND ${DBTableMonitoramento.dataMonitoramento} = "${dateFormatBR(filtros.data ?? DateTime.now())}" ';
+    if (filtros.dataInicial != null && filtros.dataFinal == null) {
+      whereFilters +=
+          'AND ${DBTableMonitoramento.dataMonitoramento} >= "${dateFormatBR(filtros.dataInicial)}" ';
+    } else if (filtros.dataInicial == null && filtros.dataFinal != null) {
+      whereFilters +=
+          'AND ${DBTableMonitoramento.dataMonitoramento} <= "${dateFormatBR(filtros.dataFinal)}" ';
+    } else if (filtros.dataInicial != null && filtros.dataFinal != null) {
+      whereFilters +=
+          'AND ${DBTableMonitoramento.dataMonitoramento} BETWEEN "${dateFormatBR(filtros.dataInicial)}" AND "${dateFormatBR(filtros.dataFinal)}" ';
+    } else {
+      whereFilters +=
+          'AND ${DBTableMonitoramento.dataMonitoramento} = "${dateFormatBR(DateTime.now())}" ';
+    }
 
     return await DBHelper.select(
       sql: 'SELECT '

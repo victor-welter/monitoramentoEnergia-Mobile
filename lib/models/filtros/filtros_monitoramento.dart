@@ -6,20 +6,31 @@ class FiltrosMonitoramento = _FiltrosMonitoramento with _$FiltrosMonitoramento;
 
 abstract class _FiltrosMonitoramento with Store {
   @observable
-  DateTime? _data = DateTime.now();
+  DateTime? _dataInicial;
+
+  @observable
+  DateTime? _dataFinal;
 
   @observable
   String? _codigoOrigem;
 
   @computed
-  DateTime? get data => _data;
+  DateTime? get dataInicial => _dataInicial;
+
+  @computed
+  DateTime? get dataFinal => _dataFinal;
 
   @computed
   String? get codigoOrigem => _codigoOrigem;
 
   @action
-  void setData(DateTime? data) {
-    _data = data;
+  void setDataInicial(DateTime? dataInicial) {
+    _dataInicial = dataInicial;
+  }
+
+  @action
+  void setDataFinal(DateTime? dataFinal) {
+    _dataFinal = dataFinal;
   }
 
   @action
@@ -29,7 +40,8 @@ abstract class _FiltrosMonitoramento with Store {
 
   @action
   void resetFiltros() {
-    _data = DateTime.now();
+    _dataInicial = null;
+    _dataFinal = null;
     _codigoOrigem = null;
   }
 }
