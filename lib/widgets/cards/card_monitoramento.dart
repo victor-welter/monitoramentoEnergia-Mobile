@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../models/monitoramento/monitoramento_model.dart';
+import '../../services/dialog_service.dart';
 import '../cs_icon.dart';
 import '../cs_info_inline.dart';
+import '../dialog-content/content_dados_monitoramento.dart';
 
 class CardMonitoramento extends StatelessWidget {
   const CardMonitoramento({
@@ -25,7 +27,12 @@ class CardMonitoramento extends StatelessWidget {
         side: BorderSide(color: theme.primaryColor),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () async => await openDialogWithContent(
+          content: ContentDadosMonitoramento(
+            monitoramento: monitoramento,
+          ),
+          icon: Icons.bolt_rounded,
+        ),
         splashColor: theme.colorScheme.onPrimary,
         focusColor: theme.colorScheme.onPrimary,
         hoverColor: theme.colorScheme.onPrimary,
@@ -34,41 +41,15 @@ class CardMonitoramento extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
           child: Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: CsInfoInline(
-                      isColumn: true,
-                      icon: const CsIcon(icon: Icons.calendar_today_rounded),
-                      label: 'Data',
-                      info: monitoramento.dataMonitoramento,
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  Expanded(
-                    child: CsInfoInline(
-                      isColumn: true,
-                      icon: const CsIcon(icon: Icons.access_time_rounded),
-                      label: 'Horário',
-                      info: monitoramento.horarioMonitoramento,
-                    ),
-                  ),
-                ],
+              CsInfoInline(
+                icon: const CsIcon(icon: Icons.calendar_today_rounded),
+                label: 'Data',
+                info: monitoramento.dataMonitoramento,
               ),
               CsInfoInline(
-                icon: const CsIcon(icon: Icons.bolt_rounded),
-                label: 'Voltagem',
-                info: monitoramento.voltagem.toString(),
-              ),
-              CsInfoInline(
-                icon: const CsIcon(icon: Icons.bolt_rounded),
-                label: 'Amperagem',
-                info: monitoramento.amperagem.toString(),
-              ),
-              CsInfoInline(
-                icon: const CsIcon(icon: Icons.bolt_rounded),
-                label: 'Resistencia',
-                info: monitoramento.resistencia.toString(),
+                icon: const CsIcon(icon: Icons.access_time_rounded),
+                label: 'Horário',
+                info: monitoramento.horarioMonitoramento,
               ),
               CsInfoInline(
                 icon: const CsIcon(icon: Icons.attach_money_rounded),
