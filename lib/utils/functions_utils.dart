@@ -129,32 +129,6 @@ bool isNullOrEmpty(String? value) {
   return false;
 }
 
-// Future<bool> requestPermissions() async {
-//   int totalGranted = 0;
-
-//   try {
-//     await Permission.camera.request();
-
-//     if (await Permission.camera.isGranted) {
-//       totalGranted++;
-//     }
-//   } catch (_) {}
-
-//   try {
-//     await Permission.storage.request();
-
-//     if (await Permission.storage.isGranted) {
-//       totalGranted++;
-//     }
-//   } catch (_) {}
-
-//   try {
-//     await Permission.manageExternalStorage.request();
-//   } catch (_) {}
-
-//   return totalGranted == 2;
-// }
-
 String extensionFile(String path) {
   return extension(path).replaceAll('.', '');
 }

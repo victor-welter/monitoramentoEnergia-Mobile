@@ -19,7 +19,7 @@ class ThemeApp {
 
     colorScheme: const ColorScheme.dark().copyWith(
       primary: Colors.grey[400],
-      onPrimary: Colors.grey[200]!,
+      onPrimary: Colors.red[50]!,
       secondary: Colors.grey[600]!,
       primaryContainer: Colors.black,
       onSecondaryContainer: Colors.grey[600],

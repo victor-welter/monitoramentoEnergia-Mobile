@@ -30,6 +30,7 @@ class CsDrawerButtonItem extends StatelessWidget {
         splashColor: theme.colorScheme.onPrimary,
         focusColor: theme.colorScheme.onPrimary,
         hoverColor: theme.colorScheme.onPrimary,
+        highlightColor: theme.colorScheme.onPrimary,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           child: Row(

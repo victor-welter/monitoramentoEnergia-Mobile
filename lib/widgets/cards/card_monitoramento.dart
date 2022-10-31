@@ -26,8 +26,12 @@ class CardMonitoramento extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {},
+        splashColor: theme.colorScheme.onPrimary,
+        focusColor: theme.colorScheme.onPrimary,
+        hoverColor: theme.colorScheme.onPrimary,
+        highlightColor: theme.colorScheme.onPrimary,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
           child: Column(
             children: [
               Row(

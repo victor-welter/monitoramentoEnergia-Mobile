@@ -6,6 +6,8 @@ import '../../constants/constants.dart';
 import '../../controllers/monitoramento/monitoramento_controller.dart';
 import '../../models/monitoramento/monitoramento_model.dart';
 import '../../services/dialog_service.dart';
+import '../../services/service_locator.dart';
+import '../../stores/filtros/filtros_store.dart';
 import '../../widgets/cards/card_monitoramento.dart';
 import '../../widgets/cs_app_bar.dart';
 import '../../widgets/cs_circular_progress_indicador.dart';
@@ -83,7 +85,14 @@ class _HomeScreenViewState extends State<HomeScreenView> {
               icon: Icons.search_rounded,
             ),
             onPressed: () async => await openDialogWithContent(
-              content: const ContentFiltroMonitoramento(),
+              content: ContentFiltroMonitoramento(
+                onSearch: () {
+                  _stateView.setUseFilter(value: true);
+                  _stateView.isUsedFilter();
+
+                  _searchMonitoramentos();
+                },
+              ),
               icon: Icons.search_rounded,
             ),
           )
@@ -109,7 +118,7 @@ class _HomeScreenBody extends StatefulWidget {
 }
 
 class _HomeScreenBodyState extends State<_HomeScreenBody> {
-  //TODO final _filters = getIt<FiltrosStore>().setores;
+  final _filters = getIt<FiltrosStore>().monitoramento;
 
   @override
   void initState() {
@@ -122,7 +131,7 @@ class _HomeScreenBodyState extends State<_HomeScreenBody> {
   @override
   void dispose() {
     _stateView.resetState();
-    // _filters.resetFiltros();
+    _filters.resetFiltros();
     _scrollController.removeListener(_listenerScrollController);
 
     super.dispose();
@@ -165,7 +174,7 @@ class _HomeScreenBodyState extends State<_HomeScreenBody> {
                 height: 35,
                 label: 'Limpar filtros',
                 onPressed: () {
-                  // _filters.resetFiltros();
+                  _filters.resetFiltros();
                   _searchMonitoramentos();
                 },
               ),

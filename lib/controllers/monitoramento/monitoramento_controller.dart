@@ -32,15 +32,11 @@ class MonitoramentoController {
 
   static Future<List<MonitoramentoModel>> searchMonitoramentos({
     required int page,
-    bool ignoreFilters = false,
   }) async {
     int offset = page * SearchOffset.MONITORAMENTOS;
 
     List<Map<String, dynamic>> response =
-        await DBMonitoramentoController.searchMonitoramento(
-      offset: offset,
-      ignoreFilters: ignoreFilters,
-    );
+        await DBMonitoramentoController.searchMonitoramento(offset: offset);
 
     return _resolveSearch(response);
   }

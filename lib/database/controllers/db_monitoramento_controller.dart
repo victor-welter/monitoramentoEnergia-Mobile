@@ -2,6 +2,9 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../constants/constants.dart';
 import '../../models/monitoramento/monitoramento_model.dart';
+import '../../services/service_locator.dart';
+import '../../stores/filtros/filtros_store.dart';
+import '../../utils/functions_utils.dart';
 import '../helpers/db_helper.dart';
 import '../tables/db_table_monitoramento.dart';
 
@@ -43,12 +46,13 @@ class DBMonitoramentoController {
 
   static Future<List<Map<String, dynamic>>> searchMonitoramento({
     required int offset,
-    required bool ignoreFilters,
   }) async {
     String whereFilters = '1 = 1 ';
 
-    String limit = 'LIMIT ${SearchOffset.MONITORAMENTOS} '
-        'OFFSET $offset ';
+    final filtros = getIt<FiltrosStore>().monitoramento;
+
+    whereFilters +=
+        'AND ${DBTableMonitoramento.dataMonitoramento} = "${dateFormatBR(filtros.data ?? DateTime.now())}" ';
 
     return await DBHelper.select(
       sql: 'SELECT '
@@ -63,7 +67,8 @@ class DBMonitoramentoController {
           'FROM ${DBTableMonitoramento.tableName} '
           'WHERE $whereFilters '
           'ORDER BY ${DBTableMonitoramento.dataMonitoramento} ASC '
-          '$limit ',
+          'LIMIT ${SearchOffset.MONITORAMENTOS} '
+          'OFFSET $offset ',
     );
   }
 }

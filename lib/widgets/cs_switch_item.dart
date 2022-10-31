@@ -25,8 +25,9 @@ class CsSwitchItem extends StatelessWidget {
       splashColor: theme.colorScheme.onPrimary,
       focusColor: theme.colorScheme.onPrimary,
       hoverColor: theme.colorScheme.onPrimary,
+      highlightColor: theme.colorScheme.onPrimary,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(

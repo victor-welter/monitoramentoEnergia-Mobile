@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'cs_icon_button.dart';
-
 class CsTextFormField extends StatelessWidget {
   ///[TextFormField] utilizados no aplicativo
   const CsTextFormField({
@@ -85,8 +83,8 @@ class CsTextFormField extends StatelessWidget {
   final int? maxLines;
   final String? label;
   final bool obrigatorio;
-  final CsIconButton? suffixIcon;
-  final CsIconButton? prefixIcon;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final String? errorText;
   final AutovalidateMode autovalidateMode;
   final bool filled;
