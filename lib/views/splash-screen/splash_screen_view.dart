@@ -73,15 +73,17 @@ class _TitleApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        Text(
-          App.NAME,
-          style: TextStyle(fontSize: 20),
-        ),
-        SizedBox(height: 25),
-        CsCircularProgressIndicador.dark(),
-      ],
+    return Center(
+      child: Column(
+        children: const [
+          Text(
+            App.NAME,
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(height: 25),
+          CsCircularProgressIndicador.dark(),
+        ],
+      ),
     );
   }
 }

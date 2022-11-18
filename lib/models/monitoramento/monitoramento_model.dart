@@ -1,8 +1,11 @@
+import '../../constants/constants.dart';
+import '../../utils/functions_utils.dart';
+
 class MonitoramentoModel {
   /// Dados recebidos da web
   MonitoramentoModel.fromMap(Map<String, dynamic> data) {
     _codigoOrigem = data['codigoOrigem'];
-    _dataMonitoramento = data['data'];
+    _dataMonitoramento = tryParseDate(data['data'], normalizeDateType: NormalizeDate.BR_FORMAT)!;
     _horarioMonitoramento = data['horario'];
     _voltagem = data['voltagem'];
     _amperagem = data['amperagem'];
@@ -14,7 +17,7 @@ class MonitoramentoModel {
   MonitoramentoModel.fromDatabase(Map<String, dynamic> data) {
     _idMonitoramentoPk = data['PK_MONITORAMENTO'];
     _codigoOrigem = data['CODIGO_ORIGEM'];
-    _dataMonitoramento = data['DATA_MONITORAMENTO'];
+    _dataMonitoramento = convertDataDB(data['DATA_MONITORAMENTO'])!;
     _horarioMonitoramento = data['HORARIO_MONITORAMENTO'];
     _voltagem = double.tryParse(data['VOLTAGEM'])!;
     _amperagem = double.tryParse(data['AMPERAGEM'])!;
@@ -24,7 +27,7 @@ class MonitoramentoModel {
 
   late int _idMonitoramentoPk;
   late int _codigoOrigem;
-  late String _dataMonitoramento;
+  late DateTime _dataMonitoramento;
   late String _horarioMonitoramento;
   late double _voltagem;
   late double _amperagem;
@@ -43,11 +46,11 @@ class MonitoramentoModel {
 
   int get codigoOrigem => _codigoOrigem;
 
-  void setDataMonitoramento(String dataMonitoramento) {
+  void setDataMonitoramento(DateTime dataMonitoramento) {
     _dataMonitoramento = dataMonitoramento;
   }
 
-  String get dataMonitoramento => _dataMonitoramento;
+  DateTime get dataMonitoramento => _dataMonitoramento;
 
   void setHorarioMonitoramento(String horarioMonitoramento) {
     _horarioMonitoramento = horarioMonitoramento;

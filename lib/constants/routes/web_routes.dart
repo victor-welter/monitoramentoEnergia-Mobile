@@ -2,9 +2,9 @@
 
 ///Armazena todas as rotas web utilizadas pelo aplicativo
 class WebRoutes {
-  static const URL_SERVIDOR = 'https://63f0-187-109-228-139.sa.ngrok.io';
+  static const URL_SERVIDOR = 'https://bdbd-138-94-78-86.sa.ngrok.io';
 
-  static const LOGIN = '/';
+  static const LOGIN = '/login';
 
   static const BUSCAR_MONITORAMENTOS = '/buscaMonitoramento';
 }

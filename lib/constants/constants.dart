@@ -5,7 +5,7 @@ class App {
 
   static const VERSION = '1.0.0';
 
-  static const ANDROID_ID = 'bbr.com.flutter.monitoramento_energia_mobile';
+  static const ANDROID_ID = 'br.com.flutter.monitoramento_energia_mobile';
 
   static const DATA_ATUALIZACAO = '18/07/2022';
 
@@ -41,9 +41,12 @@ class CadOptions {
 
 class NormalizeDate {
   ///dd/MM/yyyy
-  static const BR_FORMAT = 1;
+  static const int BR_FORMAT = 1;
 
-  static const JUST_HOUR = 2;
+  static const int JUST_HOUR = 2;
+
+  //yyyy-mm-dd
+  static const int US_FORMAT = 3;
 }
 
 class SearchOffset {

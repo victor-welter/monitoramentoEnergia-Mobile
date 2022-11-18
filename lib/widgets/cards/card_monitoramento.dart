@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/monitoramento/monitoramento_model.dart';
 import '../../services/dialog_service.dart';
+import '../../utils/functions_utils.dart';
 import '../cs_icon.dart';
 import '../cs_info_inline.dart';
 import '../dialog-content/content_dados_monitoramento.dart';
@@ -44,7 +45,7 @@ class CardMonitoramento extends StatelessWidget {
               CsInfoInline(
                 icon: const CsIcon(icon: Icons.calendar_today_rounded),
                 label: 'Data',
-                info: monitoramento.dataMonitoramento,
+                info: dateFormatBR(monitoramento.dataMonitoramento),
               ),
               CsInfoInline(
                 icon: const CsIcon(icon: Icons.access_time_rounded),

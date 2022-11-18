@@ -7,7 +7,7 @@ class DBTableMonitoramento {
   ///[INTEGER]
   static const codigoOrigem = 'codigo_origem';
 
-  ///[TEXT]
+  ///[INTEGER]
   static const dataMonitoramento = 'data_monitoramento';
 
   ///[TEXT]

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/monitoramento/monitoramento_model.dart';
+import '../../utils/functions_utils.dart';
 import '../cs_elevated_button.dart';
 import '../cs_icon.dart';
 import '../cs_info_inline.dart';
@@ -24,7 +25,7 @@ class ContentDadosMonitoramento extends StatelessWidget {
         CsInfoInline(
           icon: const CsIcon(icon: Icons.calendar_today_rounded),
           label: 'Data',
-          info: monitoramento.dataMonitoramento,
+          info: dateFormatBR(monitoramento.dataMonitoramento),
         ),
 
         CsInfoInline(

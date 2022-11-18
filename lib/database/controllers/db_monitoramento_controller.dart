@@ -4,8 +4,8 @@ import '../../constants/constants.dart';
 import '../../models/monitoramento/monitoramento_model.dart';
 import '../../services/service_locator.dart';
 import '../../stores/filtros/filtros_store.dart';
-import '../../utils/functions_utils.dart';
 import '../helpers/db_helper.dart';
+import '../helpers/db_sanitizer.dart';
 import '../tables/db_table_monitoramento.dart';
 
 class DBMonitoramentoController {
@@ -26,12 +26,12 @@ class DBMonitoramentoController {
           ') VALUES (?, ?, ?, ?, ?, ?, ?)',
       arguments: [
         monitoramento.codigoOrigem,
-        monitoramento.dataMonitoramento,
+        monitoramento.dataMonitoramento.millisecondsSinceEpoch,
         monitoramento.horarioMonitoramento,
         monitoramento.voltagem,
         monitoramento.amperagem,
         monitoramento.resistencia,
-        monitoramento.custoMonitoramento
+        monitoramento.custoMonitoramento,
       ],
       transaction: transaction,
       batch: batch,
@@ -51,18 +51,19 @@ class DBMonitoramentoController {
 
     final filtros = getIt<FiltrosStore>().monitoramento;
 
+    //Apenas data inicial foi informada
     if (filtros.dataInicial != null && filtros.dataFinal == null) {
-      whereFilters +=
-          'AND ${DBTableMonitoramento.dataMonitoramento} >= "${dateFormatBR(filtros.dataInicial)}" ';
-    } else if (filtros.dataInicial == null && filtros.dataFinal != null) {
-      whereFilters +=
-          'AND ${DBTableMonitoramento.dataMonitoramento} <= "${dateFormatBR(filtros.dataFinal)}" ';
-    } else if (filtros.dataInicial != null && filtros.dataFinal != null) {
-      whereFilters +=
-          'AND ${DBTableMonitoramento.dataMonitoramento} BETWEEN "${dateFormatBR(filtros.dataInicial)}" AND "${dateFormatBR(filtros.dataFinal)}" ';
-    } else {
-      whereFilters +=
-          'AND ${DBTableMonitoramento.dataMonitoramento} = "${dateFormatBR(DateTime.now())}" ';
+      whereFilters += 'AND ${DBTableMonitoramento.dataMonitoramento} > ${sanitizeSQL(filtros.dataInicial!.millisecondsSinceEpoch)} ';
+    }
+
+    //Apenas data Final foi informada
+    if (filtros.dataFinal != null && filtros.dataInicial == null) {
+      whereFilters += 'AND ${DBTableMonitoramento.dataMonitoramento} < ${sanitizeSQL(filtros.dataFinal!.millisecondsSinceEpoch)} ';
+    }
+
+    //As duas datas foram informadas
+    if (filtros.dataInicial != null && filtros.dataFinal != null) {
+      whereFilters += 'AND ${DBTableMonitoramento.dataMonitoramento} BETWEEN ${sanitizeSQL(filtros.dataInicial!.millisecondsSinceEpoch)} AND ${sanitizeSQL(filtros.dataFinal!.millisecondsSinceEpoch)} ';
     }
 
     return await DBHelper.select(

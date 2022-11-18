@@ -61,7 +61,7 @@ String? _normalizeDate(int type, dynamic value) {
     //Formato esperado: dd/MM/yyyy
     case NormalizeDate.BR_FORMAT:
       String v = (value as String).replaceAll('/', '');
-      if (v.length >= 8) {
+      if (v.length == 8) {
         String year = v.substring(4, 8);
         String month = v.substring(2, 4);
         String day = v.substring(0, 2);
@@ -69,12 +69,22 @@ String? _normalizeDate(int type, dynamic value) {
       }
       return null;
 
+    //Formato esperado: yyyy-mm-dd
+    case NormalizeDate.US_FORMAT:
+      String v = (value as String).replaceAll('-', '');
+      if (v.length >= 8) {
+        String year = v.substring(0, 4);
+        String month = v.substring(4, 6);
+        String day = v.substring(6, 8);
+        return '$year$month$day';
+      }
+      return null;
+
     //Formato esperado: HH:mm:ss
     case NormalizeDate.JUST_HOUR:
-      if ((value as String).length == 5) {
+      if ((value as String).length == 8) {
         DateTime now = DateTime.now();
-        String date =
-            '${now.year}${(now.month).toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}';
+        String date = '${now.year}${(now.month).toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}';
         return '$date $value';
       }
       return value;

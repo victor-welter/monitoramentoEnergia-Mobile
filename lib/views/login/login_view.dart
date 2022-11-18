@@ -96,8 +96,7 @@ class _LoginBodyState extends State<_LoginBody> {
       try {
         await LocalAuthService.requestAuthentication();
 
-        String password =
-            await SecureStorageService.read(SharedKeys.SECURE_PASSWORD) ?? '';
+        String password = await SecureStorageService.read(SharedKeys.SECURE_PASSWORD) ?? '';
 
         _senhaController.text = password;
 
@@ -135,14 +134,13 @@ class _LoginBodyState extends State<_LoginBody> {
       _stateView.setLogginIn(value: true);
 
       if (_formKey.currentState?.validate() ?? false) {
-        _formKey.currentState?.save(); //Seta os valores nos campos da model
+        _formKey.currentState?.save();
 
         // await UsuariosController.login();
 
         await Future.delayed(const Duration(seconds: 1));
 
-        getIt<NavigationService>()
-            .pushNamedAndRemoveUntil(LocalRoutes.SYNC_SERVICE);
+        getIt<NavigationService>().pushNamedAndRemoveUntil(LocalRoutes.SYNC_SERVICE);
       }
     } catch (err) {
       if (err is ErrorModel) {

@@ -12,8 +12,7 @@ class DBCreateTables {
       '${DBTableUsuarios.email} TEXT NULL '
       ');';
 
-  static const configuracoes =
-      'CREATE TABLE ${DBTableConfiguracoes.tableName} ('
+  static const configuracoes = 'CREATE TABLE ${DBTableConfiguracoes.tableName} ('
       '${DBTableConfiguracoes.pkConfiguracao} INTEGER PRIMARY KEY, '
       '${DBTableConfiguracoes.biometria} INTEGER NOT NULL DEFAULT 0, '
       '${DBTableConfiguracoes.synkedData} INTEGER NOT NULL DEFAULT 0, '
@@ -24,11 +23,10 @@ class DBCreateTables {
       '${DBTableConfiguracoes.pkUsuario} INTEGER NOT NULL REFERENCES ${DBTableUsuarios.tableName} (${DBTableUsuarios.pkUsuario}) '
       ');';
 
-  static const monitoramento =
-      'CREATE TABLE ${DBTableMonitoramento.tableName} ('
+  static const monitoramento = 'CREATE TABLE ${DBTableMonitoramento.tableName} ('
       '${DBTableMonitoramento.pkMonitoramento} INTEGER PRIMARY KEY, '
       '${DBTableMonitoramento.codigoOrigem} INTEGER NOT NULL, '
-      '${DBTableMonitoramento.dataMonitoramento} TEXT NOT NULL, '
+      '${DBTableMonitoramento.dataMonitoramento} INTEGER NOT NULL, '
       '${DBTableMonitoramento.horarioMonitoramento} TEXT NOT NULL, '
       '${DBTableMonitoramento.voltagem} TEXT NOT NULL, '
       '${DBTableMonitoramento.amperagem} TEXT NOT NULL, '

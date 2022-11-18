@@ -8,20 +8,20 @@ import '../../models/sessao/sessao_model.dart';
 import '../../repositories/usuario/usuario_repository.dart';
 import '../../services/secure_storage_service.dart';
 import '../../services/service_locator.dart';
-import '../../utils/request_utils.dart';
 
 class UsuariosController {
   ///Responsável por efetuar o login do usuário
   static Future<void> login() async {
     final sessao = getIt<SessaoModel>();
 
-    Map<String, dynamic> response = await UsuarioRepository.login();
+    dynamic response = await UsuarioRepository.login();
 
-    validaResponse(
-      response,
-      response['message'],
-      ErrorType.login,
-    );
+    if (response == false) {
+      throw ErrorModel(
+        descricao: 'Acesso não autorizado',
+        type: ErrorType.login,
+      );
+    }
 
     sessao
       ..setCodigoUsuario(response['data']['idUsuario'])
@@ -51,8 +51,7 @@ class UsuariosController {
 
     final sessao = getIt<SessaoModel>();
 
-    final String password =
-        await SecureStorageService.read(SharedKeys.SECURE_PASSWORD) ?? '';
+    final String password = await SecureStorageService.read(SharedKeys.SECURE_PASSWORD) ?? '';
 
     bool isValid = synkedData && (sessao.senha == password);
 
@@ -78,8 +77,7 @@ class UsuariosController {
 
     SessaoModel sessao = SessaoModel.fromDatabase(response);
 
-    String token =
-        (await SecureStorageService.read(SharedKeys.SECURE_TOKEN_JWT))!;
+    String token = (await SecureStorageService.read(SharedKeys.SECURE_TOKEN_JWT))!;
 
     sessao.setTokenJWT(token);
 
