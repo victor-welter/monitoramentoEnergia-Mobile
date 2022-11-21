@@ -14,30 +14,22 @@ class UsuariosController {
   static Future<void> login() async {
     final sessao = getIt<SessaoModel>();
 
-    dynamic response = await UsuarioRepository.login();
+    Map<String, dynamic> response = await UsuarioRepository.login();
 
-    if (response == false) {
+    if (!response['status']) {
       throw ErrorModel(
-        descricao: 'Acesso não autorizado',
+        descricao: response['message'],
         type: ErrorType.login,
       );
     }
 
-    sessao
-      ..setCodigoUsuario(response['data']['idUsuario'])
-      ..setTokenJWT(response['token']);
+    sessao.setTokenJWT('');
 
     //Persiste o token do usuário em armazenamento criptografado
-    await SecureStorageService.save(
-      SharedKeys.SECURE_TOKEN_JWT,
-      sessao.tokenJWT,
-    );
+    await SecureStorageService.save(SharedKeys.SECURE_TOKEN_JWT, sessao.tokenJWT);
 
     //Persiste a senha do usuário para login offline em armazenamento criptografado
-    await SecureStorageService.save(
-      SharedKeys.SECURE_PASSWORD,
-      sessao.senha!,
-    );
+    await SecureStorageService.save(SharedKeys.SECURE_PASSWORD, sessao.senha!);
 
     int pkUsuario = await DBUsuariosController.insertUsuario(sessao);
 
@@ -47,11 +39,10 @@ class UsuariosController {
   }
 
   static Future<bool> loginOffline() async {
-    final bool synkedData = UsuariosController.usuarioSynkedData();
-
     final sessao = getIt<SessaoModel>();
 
-    final String password = await SecureStorageService.read(SharedKeys.SECURE_PASSWORD) ?? '';
+    final synkedData = UsuariosController.usuarioSynkedData();
+    final password = await SecureStorageService.read(SharedKeys.SECURE_PASSWORD) ?? '';
 
     bool isValid = synkedData && (sessao.senha == password);
 

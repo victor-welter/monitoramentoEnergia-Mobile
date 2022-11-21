@@ -4,15 +4,15 @@ import '../../services/http_service.dart';
 import '../../services/service_locator.dart';
 
 class UsuarioRepository {
-  static Future<String> login() async {
+  static Future<Map<String, dynamic>> login() async {
     final sessao = getIt<SessaoModel>();
 
     final Map<String, dynamic> params = {
-      'Login': sessao.usuario,
-      'Senha': sessao.senha,
+      'usuario': sessao.usuario,
+      'senha': sessao.senha,
     };
 
-    Future<String> response = await HttpService.get(
+    dynamic response = await HttpService.post(
       rota: WebRoutes.LOGIN,
       params: params,
     );

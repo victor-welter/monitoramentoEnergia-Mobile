@@ -10,8 +10,6 @@ class App {
   static const DATA_ATUALIZACAO = '18/07/2022';
 
   static const DESENVOLVEDOR = 'Víctor Vinícius Welter';
-
-  static const QUANTIDADE_LOGIN = 15;
 }
 
 enum DialogAction { ok, sim_nao, none }
@@ -41,12 +39,12 @@ class CadOptions {
 
 class NormalizeDate {
   ///dd/MM/yyyy
-  static const int BR_FORMAT = 1;
+  static const BR_FORMAT = 1;
 
-  static const int JUST_HOUR = 2;
+  static const JUST_HOUR = 2;
 
   //yyyy-mm-dd
-  static const int US_FORMAT = 3;
+  static const US_FORMAT = 3;
 }
 
 class SearchOffset {

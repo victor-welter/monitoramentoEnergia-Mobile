@@ -11,11 +11,7 @@ class DBUsuariosController {
 
     if (oldUser != null) {
       //Usuário já existia, apenas atualiza as informações
-      sessao
-        ..setPKUsuario(oldUser['PK_USUARIO'])
-        ..setEmail(oldUser['EMAIL'])
-        ..setNome(oldUser['NOME'])
-        ..setCodigoUsuario(oldUser['CODIGO_USUARIO']);
+      sessao.setPKUsuario(oldUser['PK_USUARIO']);
 
       await updateUsuario(sessao);
 
@@ -32,17 +28,11 @@ class DBUsuariosController {
       int pkUsuario = await DBHelper.insert(
         sql: 'INSERT INTO ${DBTableUsuarios.tableName} ('
             '${DBTableUsuarios.usuario}, '
-            '${DBTableUsuarios.codigoUsuario}, '
-            '${DBTableUsuarios.dataLogin}, '
-            '${DBTableUsuarios.email}, '
-            '${DBTableUsuarios.nome} '
-            ') VALUES (?, ?, ?, ?, ?)',
+            '${DBTableUsuarios.dataLogin} '
+            ') VALUES (?, ?)',
         arguments: [
           sessao.usuario!.toUpperCase(),
-          sessao.codigoUsuario,
           DateTime.now().millisecondsSinceEpoch,
-          sessao.email,
-          sessao.nome,
         ],
         transaction: txn,
       );
@@ -66,14 +56,10 @@ class DBUsuariosController {
   }) async {
     await DBHelper.update(
       sql: 'UPDATE ${DBTableUsuarios.tableName} SET '
-          '${DBTableUsuarios.dataLogin} = ?, '
-          '${DBTableUsuarios.email} = ?, '
-          '${DBTableUsuarios.nome} = ? '
+          '${DBTableUsuarios.dataLogin} = ? '
           'WHERE ${DBTableUsuarios.pkUsuario} = ? ',
       arguments: [
         DateTime.now().millisecondsSinceEpoch,
-        sessao.email,
-        sessao.nome,
         sessao.pkUsuario,
       ],
       transaction: transaction,
@@ -102,9 +88,6 @@ class DBUsuariosController {
     List<Map<String, dynamic>> response = await DBHelper.select(
       sql: 'SELECT '
           'usu.${DBTableUsuarios.pkUsuario} AS \'PK_USUARIO\', '
-          'usu.${DBTableUsuarios.codigoUsuario} AS \'CODIGO_USUARIO\', '
-          'usu.${DBTableUsuarios.nome} AS \'NOME\', '
-          'usu.${DBTableUsuarios.email} AS \'EMAIL\', '
           'usu.${DBTableUsuarios.dataLogin} AS \'DATA_LOGIN\', '
           'usu.${DBTableUsuarios.usuario} AS \'USUARIO\', '
           'conf.${DBTableConfiguracoes.biometria} AS \'BIOMETRIA\', '

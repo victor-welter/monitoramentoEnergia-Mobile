@@ -5,11 +5,8 @@ import 'tables/db_table_usuarios.dart';
 class DBCreateTables {
   static const usuarios = 'CREATE TABLE ${DBTableUsuarios.tableName} ('
       '${DBTableUsuarios.pkUsuario} INTEGER PRIMARY KEY, '
-      '${DBTableUsuarios.codigoUsuario} INTEGER NOT NULL UNIQUE, '
       '${DBTableUsuarios.usuario} TEXT NOT NULL UNIQUE, '
-      '${DBTableUsuarios.dataLogin} INTEGER NOT NULL, '
-      '${DBTableUsuarios.nome} TEXT NULL, '
-      '${DBTableUsuarios.email} TEXT NULL '
+      '${DBTableUsuarios.dataLogin} INTEGER NOT NULL '
       ');';
 
   static const configuracoes = 'CREATE TABLE ${DBTableConfiguracoes.tableName} ('

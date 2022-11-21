@@ -6,9 +6,6 @@ class SessaoModel {
   SessaoModel.fromDatabase(Map<String, dynamic> data) {
     _pkUsuario = data['PK_USUARIO'];
     _usuario = data['USUARIO'];
-    _codigoUsuario = data['CODIGO_USUARIO'];
-    _email = data['EMAIL'];
-    _nome = data['NOME'];
     _configuracoes = ConfiguracoesModel.fromDatabase(data);
   }
 
@@ -16,9 +13,6 @@ class SessaoModel {
   String? _usuario;
   String? _senha;
   late String _tokenJWT;
-  late int _codigoUsuario;
-  String? _email;
-  String? _nome;
   ConfiguracoesModel? _configuracoes = ConfiguracoesModel();
 
   void setPKUsuario(int? pk) {
@@ -45,24 +39,6 @@ class SessaoModel {
 
   String get tokenJWT => _tokenJWT;
 
-  void setCodigoUsuario(int codigo) {
-    _codigoUsuario = codigo;
-  }
-
-  int get codigoUsuario => _codigoUsuario;
-
-  void setEmail(String? email) {
-    _email = email;
-  }
-
-  String? get email => _email;
-
-  void setNome(String? nome) {
-    _nome = nome;
-  }
-
-  String? get nome => _nome;
-
   void setConfiguracoes(ConfiguracoesModel? configuracoes) {
     _configuracoes = configuracoes;
   }
@@ -75,9 +51,6 @@ class SessaoModel {
     required SessaoModel newSession,
   }) {
     oldSession
-      ..setCodigoUsuario(newSession.codigoUsuario)
-      ..setEmail(newSession.email)
-      ..setNome(newSession.nome)
       ..setPKUsuario(newSession.pkUsuario)
       ..setTokenJWT(newSession.tokenJWT)
       ..setUsuario(newSession.usuario)

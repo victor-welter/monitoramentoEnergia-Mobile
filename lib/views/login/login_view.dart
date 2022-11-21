@@ -67,7 +67,7 @@ class _LoginBodyState extends State<_LoginBody> {
   void initState() {
     super.initState();
 
-    // _buscaUltimoLogin();
+    _buscaUltimoLogin();
   }
 
   @override
@@ -136,7 +136,7 @@ class _LoginBodyState extends State<_LoginBody> {
       if (_formKey.currentState?.validate() ?? false) {
         _formKey.currentState?.save();
 
-        // await UsuariosController.login();
+        await UsuariosController.login();
 
         await Future.delayed(const Duration(seconds: 1));
 
