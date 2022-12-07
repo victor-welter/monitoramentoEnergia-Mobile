@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 class App {
-  static const NAME = 'Monitoramento de energia';
+  static const NAME = 'Monitoramento de Energia';
 
   static const VERSION = '1.0.0';
 

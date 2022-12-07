@@ -148,3 +148,31 @@ String removeExtensionFile(String path) {
 
   return path.replaceAll(ext, '');
 }
+
+String? formatValoresMonetarios(dynamic valor) {
+  if (valor == null) {
+    return null;
+  }
+
+  return 'R\$${NumberFormat.currency(
+    locale: 'pt',
+    decimalDigits: 2,
+    symbol: '',
+  ).format(valor)}';
+}
+
+String? formatQuantidade(dynamic valor) {
+  if (valor == null) {
+    return null;
+  }
+
+  double quantidade = double.parse(valor.toString());
+
+  double valorArrendondado = quantidade.roundToDouble();
+
+  if (valorArrendondado == quantidade) {
+    return '${quantidade.toStringAsFixed(0)}';
+  }
+
+  return '$quantidade';
+}

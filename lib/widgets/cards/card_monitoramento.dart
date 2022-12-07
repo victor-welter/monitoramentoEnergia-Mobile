@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/monitoramento/monitoramento_model.dart';
 import '../../services/dialog_service.dart';
 import '../../utils/functions_utils.dart';
+import '../../utils/string_format_utils.dart';
 import '../cs_icon.dart';
 import '../cs_info_inline.dart';
 import '../dialog-content/content_dados_monitoramento.dart';
@@ -55,7 +56,7 @@ class CardMonitoramento extends StatelessWidget {
               CsInfoInline(
                 icon: const CsIcon(icon: Icons.attach_money_rounded),
                 label: 'Custo',
-                info: monitoramento.custoMonitoramento.toString(),
+                info: valorNull(formatValoresMonetarios(monitoramento.custoMonitoramento)),
               ),
             ],
           ),

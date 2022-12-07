@@ -33,8 +33,7 @@ class CsDrawer extends StatelessWidget {
             ),
 
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 5)
-                  .copyWith(bottom: 15),
+              margin: const EdgeInsets.symmetric(horizontal: 5).copyWith(bottom: 15),
               child: Text(
                 App.NAME,
                 textAlign: TextAlign.center,
@@ -86,8 +85,6 @@ class CsDrawer extends StatelessWidget {
               icon: Icons.logout_outlined,
               title: "Voltar ao login",
               onPressed: () {
-                //TODO refreshDataServiceLocator();
-
                 getIt<NavigationService>().pushNamedAndRemoveUntil(
                   LocalRoutes.LOGIN,
                 );

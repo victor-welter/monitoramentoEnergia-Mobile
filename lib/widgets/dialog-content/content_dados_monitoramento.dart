@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/monitoramento/monitoramento_model.dart';
 import '../../utils/functions_utils.dart';
+import '../../utils/string_format_utils.dart';
 import '../cs_elevated_button.dart';
 import '../cs_icon.dart';
 import '../cs_info_inline.dart';
@@ -37,25 +38,25 @@ class ContentDadosMonitoramento extends StatelessWidget {
         CsInfoInline(
           icon: const CsIcon(icon: Icons.bolt_rounded),
           label: 'Voltagem',
-          info: monitoramento.voltagem.toString(),
+          info: valorNull(formatQuantidade(monitoramento.voltagem)),
         ),
 
         CsInfoInline(
           icon: const CsIcon(icon: Icons.bolt_rounded),
           label: 'Amperagem',
-          info: monitoramento.amperagem.toString(),
+          info: valorNull(formatQuantidade(monitoramento.amperagem)),
         ),
 
         CsInfoInline(
           icon: const CsIcon(icon: Icons.bolt_rounded),
-          label: 'Resistencia',
-          info: monitoramento.resistencia.toString(),
+          label: 'resistência',
+          info: valorNull(formatQuantidade(monitoramento.resistencia)),
         ),
 
         CsInfoInline(
           icon: const CsIcon(icon: Icons.attach_money_rounded),
           label: 'Custo',
-          info: monitoramento.custoMonitoramento.toString(),
+          info: valorNull(formatValoresMonetarios(monitoramento.custoMonitoramento)),
         ),
 
         const SizedBox(height: 20),
