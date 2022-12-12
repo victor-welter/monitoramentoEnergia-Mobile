@@ -49,7 +49,13 @@ class ContentDadosMonitoramento extends StatelessWidget {
 
         CsInfoInline(
           icon: const CsIcon(icon: Icons.bolt_rounded),
-          label: 'resistência',
+          label: 'Potência',
+          info: valorNull(formatQuantidade(monitoramento.amperagem * monitoramento.voltagem)),
+        ),
+
+        CsInfoInline(
+          icon: const CsIcon(icon: Icons.bolt_rounded),
+          label: 'Resistência',
           info: valorNull(formatQuantidade(monitoramento.resistencia)),
         ),
 

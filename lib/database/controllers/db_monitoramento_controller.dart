@@ -78,7 +78,7 @@ class DBMonitoramentoController {
           '${DBTableMonitoramento.custoMonitoramento} AS \'CUSTO_MONITORAMENTO\' '
           'FROM ${DBTableMonitoramento.tableName} '
           'WHERE $whereFilters '
-          'ORDER BY ${DBTableMonitoramento.dataMonitoramento} ASC '
+          'ORDER BY ${DBTableMonitoramento.dataMonitoramento} DESC '
           'LIMIT ${SearchOffset.MONITORAMENTOS} '
           'OFFSET $offset ',
     );

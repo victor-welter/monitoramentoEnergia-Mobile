@@ -18,12 +18,12 @@ class CardMonitoramento extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     return Card(
       elevation: 0,
       color: theme.scaffoldBackgroundColor,
-      margin: const EdgeInsets.symmetric(horizontal: 10).copyWith(top: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10).copyWith(bottom: 10),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
         side: BorderSide(color: theme.primaryColor),

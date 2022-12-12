@@ -36,6 +36,13 @@ mixin _$HomeScreenState on _HomeScreenState, Store {
       (_$usedFilterComputed ??= Computed<bool>(() => super.usedFilter,
               name: '_HomeScreenState.usedFilter'))
           .value;
+  Computed<String>? _$precoTotalComputed;
+
+  @override
+  String get precoTotal =>
+      (_$precoTotalComputed ??= Computed<String>(() => super.precoTotal,
+              name: '_HomeScreenState.precoTotal'))
+          .value;
   Computed<ObservableList<MonitoramentoModel>>? _$monitoramentosComputed;
 
   @override
@@ -91,6 +98,22 @@ mixin _$HomeScreenState on _HomeScreenState, Store {
   set _usedFilter(bool value) {
     _$_usedFilterAtom.reportWrite(value, super._usedFilter, () {
       super._usedFilter = value;
+    });
+  }
+
+  late final _$_precoTotalAtom =
+      Atom(name: '_HomeScreenState._precoTotal', context: context);
+
+  @override
+  String get _precoTotal {
+    _$_precoTotalAtom.reportRead();
+    return super._precoTotal;
+  }
+
+  @override
+  set _precoTotal(String value) {
+    _$_precoTotalAtom.reportWrite(value, super._precoTotal, () {
+      super._precoTotal = value;
     });
   }
 
@@ -169,6 +192,17 @@ mixin _$HomeScreenState on _HomeScreenState, Store {
   }
 
   @override
+  void setPrecoTotal({required String value}) {
+    final _$actionInfo = _$_HomeScreenStateActionController.startAction(
+        name: '_HomeScreenState.setPrecoTotal');
+    try {
+      return super.setPrecoTotal(value: value);
+    } finally {
+      _$_HomeScreenStateActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void resetState() {
     final _$actionInfo = _$_HomeScreenStateActionController.startAction(
         name: '_HomeScreenState.resetState');
@@ -186,6 +220,7 @@ loading: ${loading},
 finishLoading: ${finishLoading},
 hasError: ${hasError},
 usedFilter: ${usedFilter},
+precoTotal: ${precoTotal},
 monitoramentos: ${monitoramentos}
     ''';
   }

@@ -9,6 +9,7 @@ import '../../services/dialog_service.dart';
 import '../../services/service_locator.dart';
 import '../../stores/filtros/filtros_store.dart';
 import '../../widgets/cards/card_monitoramento.dart';
+import '../../widgets/cards/card_preco_total.dart';
 import '../../widgets/cs_app_bar.dart';
 import '../../widgets/cs_circular_progress_indicador.dart';
 import '../../widgets/cs_elevated_button.dart';
@@ -47,8 +48,15 @@ Future<void> _searchMonitoramentos() async {
     if (monitoramentos.isEmpty) {
       _stateView.setFinishLoading(value: true);
     } else {
-      _stateView.monitoramentos
-          .addAll(monitoramentos as List<MonitoramentoModel>);
+      _stateView.monitoramentos.addAll(monitoramentos as List<MonitoramentoModel>);
+
+      double precoTotal = 0;
+
+      for (int i = 0; i < _stateView.monitoramentos.length; i++) {
+        precoTotal = precoTotal + _stateView.monitoramentos[i].custoMonitoramento;
+
+        _stateView.setPrecoTotal(value: precoTotal.toString());
+      }
     }
 
     _stateView.setUseFilter(value: false);
@@ -140,8 +148,7 @@ class _HomeScreenBodyState extends State<_HomeScreenBody> {
   /// Listener utilizado para paginação
   void _listenerScrollController() {
     try {
-      if (_scrollController.position.pixels >=
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent) {
         if (!_stateView.loading && !_stateView.finishLoading) {
           _searchMonitoramentos();
         }
@@ -151,6 +158,8 @@ class _HomeScreenBodyState extends State<_HomeScreenBody> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Observer(builder: (_) {
       if (_stateView.loading && _stateView.monitoramentos.isEmpty) {
         return const CsCircularProgressIndicador.light();
@@ -158,8 +167,7 @@ class _HomeScreenBodyState extends State<_HomeScreenBody> {
 
       if (_stateView.hasError) {
         return const NenhumaInformacao(
-          message:
-              'Aconteceu um erro inesperado. Por favor, tente novamente ou entre em contato com a equipe responsável.',
+          message: 'Aconteceu um erro inesperado. Por favor, tente novamente ou entre em contato com a equipe responsável.',
           imagePath: AssetsPath.NO_DATA,
         );
       }
@@ -190,24 +198,40 @@ class _HomeScreenBodyState extends State<_HomeScreenBody> {
 
       return Scrollbar(
         radius: const Radius.circular(50),
-        child: ListView.builder(
-          controller: _scrollController,
-          itemCount:
-              _stateView.monitoramentos.length + (_stateView.loading ? 1 : 0),
-          physics: const BouncingScrollPhysics(),
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          padding: const EdgeInsets.all(0),
-          itemBuilder: (_, index) {
-            if (index < _stateView.monitoramentos.length) {
-              final monitoramento = _stateView.monitoramentos[index];
+        child: Column(
+          children: [
+            CardPrecoTotal(
+              total: _stateView.precoTotal,
+            ),
+            Divider(
+              height: 0,
+              thickness: 2,
+              endIndent: 20,
+              indent: 20,
+              color: theme.primaryColor,
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: ListView.builder(
+                controller: _scrollController,
+                itemCount: _stateView.monitoramentos.length + (_stateView.loading ? 1 : 0),
+                physics: const BouncingScrollPhysics(),
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                padding: const EdgeInsets.all(0),
+                itemBuilder: (_, index) {
+                  if (index < _stateView.monitoramentos.length) {
+                    final monitoramento = _stateView.monitoramentos[index];
 
-              return CardMonitoramento(
-                monitoramento: monitoramento,
-              );
-            }
+                    return CardMonitoramento(
+                      monitoramento: monitoramento,
+                    );
+                  }
 
-            return const CsCircularProgressIndicador.light();
-          },
+                  return const CsCircularProgressIndicador.light();
+                },
+              ),
+            ),
+          ],
         ),
       );
     });

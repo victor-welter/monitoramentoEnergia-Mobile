@@ -24,6 +24,9 @@ abstract class _HomeScreenState with Store {
   bool _usedFilter = false;
 
   @observable
+  String _precoTotal = '';
+
+  @observable
   ObservableList<MonitoramentoModel> _monitoramentos = ObservableList();
 
   // Computed
@@ -42,6 +45,9 @@ abstract class _HomeScreenState with Store {
 
   @computed
   bool get usedFilter => _usedFilter;
+
+  @computed
+  String get precoTotal => _precoTotal;
 
   @computed
   ObservableList<MonitoramentoModel> get monitoramentos => _monitoramentos;
@@ -81,6 +87,11 @@ abstract class _HomeScreenState with Store {
   }
 
   @action
+  void setPrecoTotal({required String value}) {
+    _precoTotal = value;
+  }
+
+  @action
   void resetState() {
     _monitoramentos = ObservableList();
     _page = 0;
@@ -89,5 +100,6 @@ abstract class _HomeScreenState with Store {
     _hasError = false;
     _useFilter = false;
     _usedFilter = false;
+    _precoTotal = '';
   }
 }
